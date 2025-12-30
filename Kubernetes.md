@@ -108,15 +108,21 @@ sudo umount /mnt/efi
 
 And now we update our boot manager to include the new one, while we're at it we're going to update the original one so we have a primary / secondary that we can identify in BIOS.
 
-Run: sudo efibootmgr -c -d /dev/nvme1n1 -p 1 -L "Ubuntu Secondary" -l "\EFI\ubuntu\shimx64.efi"
+Run:
+```
+sudo efibootmgr -c -d /dev/nvme1n1 -p 1 -L "Ubuntu Secondary" -l "\EFI\ubuntu\shimx64.efi"
+```
 
-Then run: sudo efibootmgr -v
+Then run:
+```
+sudo efibootmgr -v
+```
 
 This will give us a list of the boot devices, we're confirming that one of them says 'Ubuntu Secondary', and then we're looking for the one that says 'Ubuntu' and identifying the number after Boot, for example 'Boot0005 Ubuntu HD(....'
 
-Delete the old boot loader for disk one using the number (eg, 0005): sudo efibootmgr -b 0005 -B
+Delete the old boot loader for disk one using the number (eg, 0005): ```sudo efibootmgr -b 0005 -B```
 
-Now lets create the boot loader with the new name using the first disk: sudo efibootmgr -c -d /dev/nvme0n1 -p 1 -L "Ubuntu Primary" -l "\EFI\ubuntu\shimx64.efi"
+Now lets create the boot loader with the new name using the first disk: ```sudo efibootmgr -c -d /dev/nvme0n1 -p 1 -L "Ubuntu Primary" -l "\EFI\ubuntu\shimx64.efi"```
 
 Then reboot, make sure it boots.
 
